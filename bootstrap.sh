@@ -26,3 +26,8 @@ apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y "${DOCKER_PACKAGES[@]}"
 
 echo "Installed: ${ALL_PACKAGES[*]}"
+
+# Configure UFW
+ufw allow ssh
+ufw --force enable
+ufw status verbose
