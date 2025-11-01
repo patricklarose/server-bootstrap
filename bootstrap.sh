@@ -10,6 +10,9 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -y "${PACKAGES[@]}"
+
 # Add Docker's official GPG key
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
@@ -18,7 +21,8 @@ chmod a+r /etc/apt/keyrings/docker.asc
 # Add the repository to Apt sources
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+# Refresh Apt again to include Docker repo
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install -y "${ALL_PACKAGES[@]}"
+DEBIAN_FRONTEND=noninteractive apt-get install -y "${DOCKER_PACKAGES[@]}"
 
 echo "Installed: ${ALL_PACKAGES[*]}"
