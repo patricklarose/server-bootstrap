@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PACKAGES=(sudo vim nano curl wget tree git htop rsync net-tools lm-sensors smartmontools ca-certificates ufw fail2ban unattended-upgrades)
+PACKAGES=(sudo vim nano curl wget tree git htop rsync net-tools lm-sensors smartmontools ca-certificates openssh-server ufw fail2ban unattended-upgrades)
 DOCKER_PACKAGES=(docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin)
 ALL_PACKAGES=("${PACKAGES[@]}" "${DOCKER_PACKAGES[@]}")
 
