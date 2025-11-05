@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ "$EUID" -ne 0 ]; then
+  echo "Run as root."
+  exit 1
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 
 PACKAGES=(sudo vim nano curl wget tree git htop rsync net-tools lm-sensors smartmontools ca-certificates openssh-server ufw fail2ban unattended-upgrades)
 DOCKER_PACKAGES=(docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin)
 ALL_PACKAGES=("${PACKAGES[@]}" "${DOCKER_PACKAGES[@]}")
-
-if [ "$EUID" -ne 0 ]; then
-  echo "Run as root."
-  exit 1
-fi
 
 apt-get update
 apt-get install -y "${PACKAGES[@]}"
